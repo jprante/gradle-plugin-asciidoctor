@@ -1,19 +1,16 @@
 = Asciidoctor Gradle Plugin
-Andres Almiray <https://github.com/aalmiray[@aalmiray]>
-:version: 1.6.0-SNAPSHOT
-:version-published: 1.5.3
+:version-published: 1.5.4.1
 :asciidoc-url: http://asciidoc.org
 :asciidoctor-url: http://asciidoctor.org
 :issues: https://github.com/asciidoctor/asciidoctor-maven-plugin/issues
 :gradle-url: http://gradle.org/
-:asciidoctor-maven-plugin: https://github.com/asciidoctor/asciidoctor-maven-plugin
-:lightguard: https://github.com/LightGuard
+:asciidoctor-gradle-plugin: https://github.com/asciidoctor/asciidoctor-gradle-plugin
+:asciidoctorj-groovy-dsl: https://github.com/asciidoctor/asciidoctorj-groovy-dsl/
 :asciidoctorj: https://github.com/asciidoctor/asciidoctorj
-:lordofthejars: https://github.com/lordofthejars
 :asciidoctor-docs: http://asciidoctor.org/docs/
-:project-name: asciidoctor-gradle-plugin
-:project-full-path: asciidoctor/asciidoctor-gradle-plugin
-:github-branch: development
+:project-name: gradle-plugin-asciidoctor
+:project-full-path: xbib/gradle-plugin-asciidoctor
+:github-branch: xbib
 :linkattrs:
 ifndef::env-github[:icons: font]
 ifdef::env-github,env-browser[]
@@ -29,23 +26,19 @@ ifdef::env-github[]
 endif::[]
 
 ifdef::status[]
-image:http://img.shields.io/travis/{project-full-path}/{github-branch}.svg[Build Status, link=https://travis-ci.org/{project-full-path}]
-image:https://ci.appveyor.com/api/projects/status/db102rphsu5lviv6/branch/{github-branch}?svg=true&passingText={github-branch}%20-%20OK&failingText={github-branch}%20-%20Fails&pendingText={github-branch}%20-%20Pending[Build Status, link=https://ci.appveyor.com/project/{project-full-path}/branch/{github-branch}]
-image:http://img.shields.io/coveralls/{project-full-path}/{github-branch}.svg[Coverage Status, link=https://coveralls.io/r/{project-full-path}]
-image:http://img.shields.io/badge/license-ASF2-blue.svg[Apache License 2, link=http://www.apache.org/licenses/LICENSE-2.0.txt]
-image:https://api.bintray.com/packages/asciidoctor/maven/{project-name}/images/download.svg[Download, link=https://bintray.com/asciidoctor/maven/{project-name}]
+image:https://api.travis-ci.org/xbib/gradle-plugin-asciidoctor.svg[title="Build status", link="https://travis-ci.org/xbib/gradle-plugin-asciidoctor/"]
+image:https://img.shields.io/sonar/http/nemo.sonarqube.com/org.xbib.gradle.plugin%3Agradle-plugin-asciidoctor/coverage.svg?style=flat-square[title="Coverage", link="https://sonarqube.com/dashboard/index?id=org.xbib.gradle.plugin%3Agradle-plugin-asciidoctor"]
+image:https://maven-badges.herokuapp.com/maven-central/org.xbib.gradle.plugin/gradle-plugin-asciidoctor/badge.svg[title="Maven Central", link="http://search.maven.org/#search%7Cga%7C1%7Cxbib%20gradle-plugin-asciidoctor"]
+image:https://img.shields.io/badge/License-Apache%202.0-blue.svg[title="Apache License 2.0", link="https://opensource.org/licenses/Apache-2.0"]
+image:https://img.shields.io/twitter/url/https/twitter.com/xbib.svg?style=social&label=Follow%20%40xbib[title="Twitter", link="https://twitter.com/xbib"]
 endif::[]
 
-The {doctitle} is the official means of using {asciidoctor-url}[Asciidoctor] to convert all your {asciidoc-url}[AsciiDoc] documentation using {gradle-url}[Gradle].
+This {doctitle} uses {asciidoctor-url}[Asciidoctor] to convert all your {asciidoc-url}[AsciiDoc] documentation using {gradle-url}[Gradle].
 
-NOTE: This is a port of the {asciidoctor-maven-plugin}[Asciidoctor Maven Plugin] project founded by {lightguard}[@LightGuard] and relies on {asciidoctorj}[AsciidoctorJ] founded by {lordofthejars}[@lordofthejars].
-
-ifndef::env-site[]
-== Contributing
-
-Are you interested in contributing to this project? If so please read link:HACKING.adoc[HACKING] before sending in a patch.
-Thank you!
-endif::[]
+NOTE: This is a fork of the {asciidoctor-gradle-plugin}[Asciidoctor Gradle Plugin] project.
+It includes {asciidoctorj-groovy-dsl}[Asciidoctorj Groovy DSL].
+The fork uses Java 8 and updated dependencies and is mainly meant as a personal training project to learn
+more about Gradle plugin programming.
 
 == Installation
 
@@ -55,17 +48,11 @@ Use the following snippet inside a Gradle build file:
 [subs=attributes+]
 .build.gradle
 ----
-buildscript {
-    repositories {
-        jcenter()
-    }
-
-    dependencies {
-        classpath 'org.asciidoctor:{project-name}:{version-published}'
-    }
+plugins {
+  id "org.xbib.gradle.asciidoctor" version "{version-published}"
 }
 
-apply plugin: 'org.asciidoctor.convert'
+apply plugin: 'org.xbib.gradle.asciidoctor'
 ----
 
 == Usage
@@ -113,8 +100,6 @@ options:: a Map specifying different options that can be sent to Asciidoctor.
 attributes:: a Map specifying various document attributes that can be sent to Asciidoctor
   Use `attributes` to append, Use `setAttributes` or `attributes=` to overwrite.
 
-To see examples of many of these configuration options used in practice, refer to the http://asciidoctor.github.io/asciidoctor-gradle-examples[Asciidoctor Gradle Examples] project.
-
 === Defining Sources
 
 The plugin will search for sources under `sourceDir`. Sources may have any of the following extensions in
@@ -125,7 +110,8 @@ order to be discovered:
 * .ad
 * .asc
 
-To select only certain files, use the `sources` method. This method takes a closure as an argument, which in turn configures an internal
+To select only certain files, use the `sources` method. This method takes a closure as an argument,
+which in turn configures an internal
 http://www.gradle.org/docs/current/javadoc/org/gradle/api/tasks/util/PatternSet.html[PatternSet].
 
 To specify a custom output folder, use the `outputDir` method.
@@ -253,7 +239,7 @@ for more information.
 
 == Configuration
 
-This plugin uses `asciidoctorj-1.5.3.2` by default, however, you can change this by
+This plugin uses `asciidoctorj-1.5.4.1` by default, however, you can change this by
 defining a value on the `asciidoctorj` extension, like so
 
 [source,groovy]
@@ -283,12 +269,12 @@ asciidoctorj {
 <2> resolves artifacts in Bintray's jcenter (where all other dependencies are found)
 
 The plugin also adds Bintray's JCenter as a default repository as the place to looks for `asciidocotorj`. In some contexts
-this behaviour can be considered detrimental or unwanted. In such cases this behaviour can be turned off by doing
+this behaviour can be considered detrimental or unwanted. This behaviour can be turned off by doing
 
 [source,groovy]
 ----
 asciidoctorj {
-  noDefaultRepositories = true
+  defaultRepositories = false
 }
 ----
 
@@ -350,17 +336,11 @@ The `extension` project is a sibling for `core`. The build file for the latter l
 [subs=attributes+]
 .build.gradle
 ----
-buildscript {
-    repositories {
-        jcenter()
-    }
-
-    dependencies {
-        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:{version-published}'
-    }
+plugins {
+  id "org.xbib.gradle.plugin.asciidoctor" version "{version-published}"
 }
 
-apply plugin: 'org.asciidoctor.convert'
+apply plugin: 'org.xbib.gradle.plugin.asciidoctor'
 
 repositories {
     jcenter()
@@ -424,59 +404,6 @@ block(name: "BIG", contexts: [":paragraph"]) {
 The last option is to move the `extension` project into Gradle's `buildSrc` directory. There are no additional dependencies
 to be defined on the consuming projects, as the extension will be automatically picked up by the `asciidoctor` task,
 as the compiled extension is already in the task's classpath.
-
-[appendix]
-== Compatibility With Previous Releases
-
-=== Task Properties
-
-The following properties have been marked as deprecated. Developers are encouraged to migrate ASAP to the alternate
-properties.
-
-[horizontal]
-sourceDocumentNames:: an override to process multiple source files, which are relative to `sourceDir`.
-  Use `sources { include 'name' }` instead.
-sourceDocumentName:: an override to process a single source file. Use `sources { include 'name' }` instead.
-backend:: the backend to use. Use `backends` instead.
-
-=== Behavior
-
-* The default value for `sourceDir` has changed from `src/asciidoc` to `src/docs/asciidoc`.
-* Files specified in `sourceDocumentNames` must be relative to `sourceDir` and fully contained in `sourceDir`, in other words,
-it's no longer possible to process documents placed outside of the project's sources. Attempts will be made to convert absolute paths
-to relative paths  but conversion will not be guaranteed. Do not pass FileCollections as they will not convert correctly.
-* Source files that are not reachable from `sourceDir`, will no longer cause a build exception, they will just be silently ignored.
-* For backwards compatibility with older version, embedding `attributes` within `options` are still allowed, including legacy forms.
-* Non-source files are no longer automatically copied, unless they are in the `images` folder and `resources` was never
-called.
-* Each backend will now write to a separate subfolder under `outputDir`. To have the old behaviour use
-`separateOutputDirs = false`.
-
-=== Options & Attributes
-
-[source,groovy]
-.build.gradle
-----
-// Map notation
-attributes: toc: 'right',
-            'source-highlighter': 'coderay',
-            'toc-title': 'Table of Contents'
-
-// List notation
-attributes: [
-    'toc=right',
-    'source-highlighter=coderay',
-    'toc-title=Table of Contents'
-]
-
-// String notation
-attributes: 'toc=right source-highlighter=coderay toc-title=Table\\ of\\ Contents'
-----
-
-IMPORTANT: Do not forget to transform Groovy strings into Strings (by explicitly invoking `.toString()` on them) when
-used as option values, otherwise the Ruby runtime will throw an exception.
-
-Notice how spaces are escaped in the last key/value pair.
 
 [appendix]
 == Tips & Tricks
