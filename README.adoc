@@ -49,10 +49,10 @@ Use the following snippet inside a Gradle build file:
 .build.gradle
 ----
 plugins {
-  id "org.xbib.gradle.asciidoctor" version "{version-published}"
+  id "org.xbib.gradle.plugin.asciidoctor" version "{version-published}"
 }
 
-apply plugin: 'org.xbib.gradle.asciidoctor'
+apply plugin: 'org.xbib.gradle.plugin.asciidoctor'
 ----
 
 == Usage
