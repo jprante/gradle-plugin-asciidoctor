@@ -22,7 +22,6 @@ dependencies {
         exclude group: 'org.codehaus.groovy', module: 'groovy-all'
     }
     testCompile 'org.jsoup:jsoup:1.8.3'
-    testCompile 'cglib:cglib-nodep:3.2.0'
     wagon "org.apache.maven.wagon:wagon-ssh-external:2.10"
 }
 
@@ -42,7 +41,8 @@ if (project.hasProperty('gradle.publish.key')) {
             asciidoctorPlugin {
                 id = 'org.xbib.gradle.plugin.asciidoctor'
                 version = project.version
-                displayName = 'Asciidoctor plugin for Gradle (inofficial xbib fork)'
+                description = projectDescription
+                displayName = projectDescription
                 tags = ['gradle', 'plugin', 'asciidoctor']
             }
         }
