@@ -6,7 +6,7 @@ import org.gradle.api.Project
  *
  */
 class AsciidoctorExtension {
-    String version = '1.5.4.1'
+    String version = '1.5.6'
 
     /**
      * By default the plugin will try to add a default repository to find AsciidoctorJ.
