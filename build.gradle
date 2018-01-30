@@ -1,5 +1,5 @@
 plugins {
-    id "com.gradle.plugin-publish" version "0.9.6"
+    id "com.gradle.plugin-publish" version "0.9.9"
 }
 
 apply plugin: 'groovy'
@@ -17,12 +17,12 @@ configurations {
 
 dependencies {
     compile gradleApi()
-    compile 'org.asciidoctor:asciidoctorj:1.5.4.1'
+    compile 'org.asciidoctor:asciidoctorj:1.5.6'
     testCompile('org.spockframework:spock-core:1.0-groovy-2.4') {
         exclude group: 'org.codehaus.groovy', module: 'groovy-all'
     }
-    testCompile 'org.jsoup:jsoup:1.8.3'
-    wagon "org.apache.maven.wagon:wagon-ssh-external:2.10"
+    testCompile 'org.jsoup:jsoup:1.11.2'
+    wagon 'org.apache.maven.wagon:wagon-ssh:3.0.0'
 }
 
 compileGroovy {
