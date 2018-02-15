@@ -192,18 +192,16 @@ blacklisted is a blacklisted word.
 
         then:
         rendered.contains('The content of the URL')
-        println rendered
     }
 
     def 'Should apply BlockMacroProcessor from Closure'() {
         given:
         AsciidoctorExtensions.extensions {
-            block_macro ("gist") {
-                parent, target, attributes ->
+            block_macro ("gist") { parent, target, attributes ->
                     String content = """<div class="content">
 <script src="https://gist.github.com/${target}.js"></script>
 </div>"""
-                    createBlock(parent, "pass", [content], attributes, config);
+                    createBlock(parent, "pass", [content], attributes);
             }
         }
 
@@ -232,7 +230,7 @@ blacklisted is a blacklisted word.
             inline_macro('man') {
                 parent, target, attributes ->
                     def options = ["type": ":link", "target": target + ".html"]
-                    createInline(parent, "anchor", target, attributes, options).convert()
+                    createPhraseNode(parent, "anchor", target, attributes, options).convert()
             }
         }
 

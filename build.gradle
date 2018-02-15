@@ -1,5 +1,6 @@
 plugins {
-    id "com.gradle.plugin-publish" version "0.9.9"
+    id "com.gradle.plugin-publish" version "0.9.10"
+    id "io.codearte.nexus-staging" version "0.11.0"
 }
 
 apply plugin: 'groovy'
@@ -7,27 +8,24 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 apply plugin: "com.gradle.plugin-publish"
 
-repositories {
-    mavenCentral()
-}
-
 configurations {
     wagon
 }
 
 dependencies {
     compile gradleApi()
-    compile 'org.asciidoctor:asciidoctorj:1.5.6'
-    testCompile('org.spockframework:spock-core:1.0-groovy-2.4') {
+    compile "org.asciidoctor:asciidoctorj:${project.property('asciidoctorj.version')}"
+    compile "org.jruby:jruby:${project.property('jruby.version')}"
+    testCompile("org.spockframework:spock-core:${project.property('spock.version')}") {
         exclude group: 'org.codehaus.groovy', module: 'groovy-all'
     }
-    testCompile 'org.jsoup:jsoup:1.11.2'
-    wagon 'org.apache.maven.wagon:wagon-ssh:3.0.0'
+    testCompile "org.jsoup:jsoup:${project.property('jsoup.version')}"
+    wagon "org.apache.maven.wagon:wagon-ssh:${project.property('wagon.version')}"
 }
 
 compileGroovy {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_1_9
+    targetCompatibility = JavaVersion.VERSION_1_9
 }
 
 apply from: 'gradle/ext.gradle'

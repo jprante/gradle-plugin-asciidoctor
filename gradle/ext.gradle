@@ -1,5 +1,5 @@
 ext {
-    user = 'xbib'
+    user = 'jprante'
     projectName = 'gradle-plugin-asciidoctor'
     projectDescription = 'Asciidoctor plugin for Gradle (inofficial xbib fork)'
     scmUrl = 'https://github.com/' + user + '/' + name

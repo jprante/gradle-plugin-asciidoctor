@@ -1,6 +1,6 @@
 package org.xbib.asciidoctor.groovydsl.extensions
 
-import org.asciidoctor.ast.AbstractBlock
+import org.asciidoctor.ast.ContentNode
 import org.asciidoctor.extension.InlineMacroProcessor
 
 /**
@@ -17,7 +17,7 @@ class DelegatingInlineMacroProcessor extends InlineMacroProcessor {
     }
 
     @Override
-    Object process(AbstractBlock parent, String target, Map<String, Object> attributes) {
+    Object process(ContentNode parent, String target, Map<String, Object> attributes) {
         cl.call(parent, target, attributes)
     }
 }

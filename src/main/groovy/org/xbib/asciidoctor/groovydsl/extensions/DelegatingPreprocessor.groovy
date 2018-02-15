@@ -18,7 +18,7 @@ class DelegatingPreprocessor extends Preprocessor {
     }
 
     @Override
-    PreprocessorReader process(Document document, PreprocessorReader reader) {
+    void process(Document document, PreprocessorReader reader) {
         cl.call(document, reader)
     }
 }

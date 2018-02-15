@@ -9,7 +9,7 @@
 :asciidoctorj: https://github.com/asciidoctor/asciidoctorj
 :asciidoctor-docs: http://asciidoctor.org/docs/
 :project-name: gradle-plugin-asciidoctor
-:project-full-path: xbib/gradle-plugin-asciidoctor
+:project-full-path: jprante/gradle-plugin-asciidoctor
 :github-branch: xbib
 :linkattrs:
 ifndef::env-github[:icons: font]
@@ -26,7 +26,7 @@ ifdef::env-github[]
 endif::[]
 
 ifdef::status[]
-image:https://api.travis-ci.org/xbib/gradle-plugin-asciidoctor.svg[title="Build status", link="https://travis-ci.org/xbib/gradle-plugin-asciidoctor/"]
+image:https://api.travis-ci.org/jprante/gradle-plugin-asciidoctor.svg[title="Build status", link="https://travis-ci.org/jprante/gradle-plugin-asciidoctor/"]
 image:https://img.shields.io/sonar/http/nemo.sonarqube.com/org.xbib.gradle.plugin%3Agradle-plugin-asciidoctor/coverage.svg?style=flat-square[title="Coverage", link="https://sonarqube.com/dashboard/index?id=org.xbib.gradle.plugin%3Agradle-plugin-asciidoctor"]
 image:https://maven-badges.herokuapp.com/maven-central/org.xbib.gradle.plugin/gradle-plugin-asciidoctor/badge.svg[title="Maven Central", link="http://search.maven.org/#search%7Cga%7C1%7Cxbib%20gradle-plugin-asciidoctor"]
 image:https://img.shields.io/badge/License-Apache%202.0-blue.svg[title="Apache License 2.0", link="https://opensource.org/licenses/Apache-2.0"]
@@ -37,8 +37,8 @@ This {doctitle} uses {asciidoctor-url}[Asciidoctor] to convert all your {asciido
 
 NOTE: This is a fork of the {asciidoctor-gradle-plugin}[Asciidoctor Gradle Plugin] project.
 It includes {asciidoctorj-groovy-dsl}[Asciidoctorj Groovy DSL].
-The fork uses Java 8 and updated dependencies and is mainly meant as a personal training project to learn
-more about Gradle plugin programming.
+The fork uses Java 9 and updated dependencies and is mainly meant as a personal training project to learn
+more about Gradle plugin programming and Asciidoc documentation.
 
 == Installation
 

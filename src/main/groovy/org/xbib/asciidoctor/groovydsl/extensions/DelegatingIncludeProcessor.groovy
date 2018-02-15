@@ -1,6 +1,7 @@
 package org.xbib.asciidoctor.groovydsl.extensions
 
-import org.asciidoctor.ast.DocumentRuby
+import org.asciidoctor.ast.Document
+
 import org.asciidoctor.extension.IncludeProcessor
 import org.asciidoctor.extension.PreprocessorReader
 
@@ -24,8 +25,9 @@ class DelegatingIncludeProcessor extends IncludeProcessor {
     boolean handles(String target) {
         filter.call(target)
     }
+
     @Override
-    void process(DocumentRuby document, PreprocessorReader reader, String target, Map<String, Object> attributes) {
+    void process(Document document, PreprocessorReader reader, String target, Map<String, Object> attributes) {
         cl.call(document, reader, target, attributes)
     }
 }
