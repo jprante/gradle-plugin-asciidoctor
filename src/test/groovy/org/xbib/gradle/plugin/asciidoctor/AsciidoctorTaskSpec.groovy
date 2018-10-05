@@ -648,7 +648,7 @@ class AsciidoctorTaskSpec extends Specification {
             }
             task.processAsciidocSources()
         then:
-            thrown(InvalidUserDataException)
+            thrown(org.gradle.api.internal.tasks.DefaultTaskContainer$TaskCreationException)
     }
 
     @SuppressWarnings('MethodName')

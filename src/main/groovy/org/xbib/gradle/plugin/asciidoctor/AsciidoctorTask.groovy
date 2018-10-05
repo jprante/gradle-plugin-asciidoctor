@@ -22,6 +22,8 @@ import org.gradle.internal.FileUtils
 import org.gradle.util.CollectionUtils
 import org.xbib.asciidoctor.groovydsl.AsciidoctorExtensions
 
+import java.nio.file.Path
+
 /**
  *
  */
@@ -288,9 +290,13 @@ class AsciidoctorTask extends DefaultTask {
     void setGemPath(Object path) {
         this.gemPaths.clear()
         if (path instanceof CharSequence) {
-            this.gemPaths.addAll(setGemPath(path.split(PATH_SEPARATOR)))
-        } else if(path){
+            setGemPath(path.tokenize(PATH_SEPARATOR))
+        } else if (path instanceof List) {
             this.gemPaths.addAll(path)
+        } else if (path instanceof File || path instanceof Path) {
+            this.gemPaths.add(path)
+        } else {
+            throw new IllegalArgumentException("unknown path class: " + path.getClass().getName())
         }
     }
 
